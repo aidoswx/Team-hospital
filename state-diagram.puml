@@ -1,0 +1,25 @@
+@startuml
+skinparam backgroundColor #000000
+skinparam shadowing false
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam StateBorderColor #FFFFFF
+skinparam StateBackgroundColor #000000
+skinparam StateFontColor #FFFFFF
+skinparam StateStartColor #FFFFFF
+skinparam StateEndColor #FFFFFF
+
+title Damumed — State диаграммасы (Қабылдауға жазылу)
+
+[*] --> Жасалды : Пациент дәрігерді\nжәне уақытты таңдады
+Жасалды --> Кезекте : Уақыт бос,\nпациент кезекке қосылды
+Жасалды --> Бас_тартылды : Уақыт бос емес /\nпациент бас тартты
+Кезекте --> Кезекте : Шұғыл пациент келді\n(басымдық қайта есептеледі)
+Кезекте --> Қабылдауда : Дәрігер пациентті шақырды
+Кезекте --> Бас_тартылды : Пациент бас тартты
+Қабылдауда --> Аяқталды : Нәтиже медициналық\nкартаға енгізілді
+Аяқталды --> [*]
+Бас_тартылды --> [*]
+@enduml
