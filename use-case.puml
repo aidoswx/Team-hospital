@@ -1,0 +1,64 @@
+@startuml
+left to right direction
+skinparam backgroundColor #000000
+skinparam shadowing false
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam ActorBorderColor #FFFFFF
+skinparam ActorBackgroundColor #000000
+skinparam ActorFontColor #FFFFFF
+skinparam UsecaseBorderColor #FFFFFF
+skinparam UsecaseBackgroundColor #000000
+skinparam UsecaseFontColor #FFFFFF
+skinparam RectangleBorderColor #FFFFFF
+skinparam RectangleBackgroundColor #000000
+skinparam RectangleFontColor #FFFFFF
+skinparam NoteBorderColor #FFFFFF
+skinparam NoteBackgroundColor #000000
+
+title Damumed — Use Case диаграммасы
+
+actor "Пациент" as Patient
+actor "Дәрігер" as Doctor
+actor "Әкімші" as Admin
+
+rectangle "Damumed жүйесі" {
+  usecase "Тіркелу" as UC1
+  usecase "Жүйеге кіру" as UC2
+  usecase "Дәрігерге жазылу" as UC3
+  usecase "Бос уақытты тексеру" as UC4
+  usecase "Электрондық кезекке тұру" as UC5
+  usecase "Өз медициналық картасын көру" as UC6
+  usecase "Пациентті қабылдау" as UC7
+  usecase "Рұқсат етілген пациент\nкартасын көру" as UC8
+  usecase "Қабылдау нәтижесін енгізу" as UC9
+  usecase "Аудит журналына жазу" as UC10
+  usecase "Дәрігер кестесін басқару" as UC11
+  usecase "Пайдаланушыларды басқару" as UC12
+  usecase "Жүйелік есептерді қарау" as UC13
+}
+
+Patient --> UC1
+Patient --> UC2
+Patient --> UC3
+Patient --> UC5
+Patient --> UC6
+
+Doctor --> UC2
+Doctor --> UC7
+Doctor --> UC8
+Doctor --> UC9
+
+Admin --> UC2
+Admin --> UC3
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+
+UC3 ..> UC4 : <<include>>
+UC3 ..> UC5 : <<include>>
+UC9 ..> UC10 : <<include>>
+UC2 ..> UC10 : <<include>>
+@enduml
