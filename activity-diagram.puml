@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #000000
+skinparam shadowing false
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam ActivityBorderColor #FFFFFF
+skinparam ActivityBackgroundColor #000000
+skinparam ActivityFontColor #FFFFFF
+skinparam ActivityDiamondBorderColor #FFFFFF
+skinparam ActivityDiamondBackgroundColor #000000
+skinparam ActivityDiamondFontColor #FFFFFF
+skinparam ActivityStartColor #FFFFFF
+skinparam ActivityEndColor #FFFFFF
+skinparam ActivityBarColor #FFFFFF
+
+title Damumed — Activity диаграммасы (Қабылдауға жазылу)
+
+start
+:Логин мен құпиясөз енгізу;
+:Жүйе пайдаланушының рөлін анықтайды;
+:Аудит журналына жазу (LOGIN);
+repeat
+  :Дәрігерді және уақытты таңдау;
+repeat while (Таңдалған уақыт бос па?) is (жоқ) not (иә)
+:Қабылдауға жазылу жасау;
+:Аудит журналына жазу (APPOINTMENT_CREATED);
+if (Пациент санаты?) then (шұғыл)
+  :Жоғары басымдықпен кезекке қосу;
+else (қарапайым)
+  :Стандартты басымдықпен кезекке қосу;
+endif
+:Comparator кезекті сұрыптайды;
+:Дәрігер пациентті қабылдайды;
+:Қабылдау нәтижесін медициналық картаға енгізу;
+:Аудит журналына жазу (RECORD_UPDATED);
+stop
+@enduml
