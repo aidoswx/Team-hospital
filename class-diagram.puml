@@ -1,0 +1,96 @@
+@startuml
+skinparam backgroundColor #000000
+skinparam shadowing false
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam ClassBorderColor #FFFFFF
+skinparam ClassBackgroundColor #000000
+skinparam ClassFontColor #FFFFFF
+skinparam ClassAttributeFontColor #FFFFFF
+skinparam ClassHeaderBackgroundColor #000000
+skinparam StereotypeFontColor #FFFFFF
+
+title Damumed — Class диаграммасы
+
+enum Priority {
+  URGENT
+  NORMAL
+}
+class User {
+  - id : int
+  - login : String
+  - passwordHash : String
+  - role : String
+  + getRole() : String
+}
+class Patient {
+  - fullName : String
+  - priority : Priority
+  - registeredAt : LocalDateTime
+  + getMedicalRecord() : MedicalRecord
+}
+class Doctor {
+  - fullName : String
+  - specialty : Specialty
+  + enterResult(record, diagnosis, treatment)
+}
+class Admin {
+  + manageUsers()
+  + manageSchedule()
+  + viewReports()
+}
+class Specialty {
+  - id : int
+  - name : String
+}
+class Schedule {
+  - slots : Map<LocalDateTime, Boolean>
+  + isFree(time) : boolean
+  + book(time)
+}
+class Appointment {
+  - id : int
+  - dateTime : LocalDateTime
+  - status : String
+  + create()
+  + cancel()
+}
+class QueueService {
+  - queue : PriorityQueue<Appointment>
+  + add(appointment)
+  + next() : Appointment
+}
+class MedicalRecord {
+  - patientId : int
+  - date : LocalDate
+  - diagnosis : String
+  - treatment : String
+  - history : List<String>
+  + addEntry()
+}
+class AuthService {
+  + login(login, password) : User
+  + checkRole(user, action) : boolean
+}
+class AuditLogger {
+  - filePath : String
+  + log(action, userLogin)
+}
+
+User <|-- Patient
+User <|-- Doctor
+User <|-- Admin
+Patient --> Priority
+Doctor --> Specialty
+Doctor "1" -- "1" Schedule
+Appointment "*" --> "1" Patient
+Appointment "*" --> "1" Doctor
+QueueService o-- "*" Appointment
+MedicalRecord "*" --> "1" Patient
+MedicalRecord "*" --> "1" Doctor
+AuthService ..> User
+AuthService ..> AuditLogger
+QueueService ..> AuditLogger
+@enduml
